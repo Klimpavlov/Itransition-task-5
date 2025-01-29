@@ -1,6 +1,5 @@
 'use client';
 
-import Image from "next/image";
 import {getBooksList} from "@/app/api/getBooks";
 import React, {useEffect, useState} from "react";
 import {
@@ -15,12 +14,12 @@ import {
 
 export default function Home() {
 
-  const [users, setUsers] = useState([]);
+  const [books, setBooks] = useState([]);
 
   async function getBooks() {
     const booksData = await getBooksList();
     console.log(booksData);
-    setUsers(booksData);
+    setBooks(booksData);
   }
 
   useEffect(() => {
@@ -41,15 +40,13 @@ export default function Home() {
               <TableHead className="text-right">Publisher</TableHead>
             </TableRow>
           </TableHeader>
-          {users.map((user) => (
-            <TableBody>
-              <TableRow>
-                <TableCell key="isbn" className="font-medium">{user.isbn}</TableCell>
-                <TableCell key="title">{user.title}</TableCell>
-                <TableCell key="author">{user.author}</TableCell>
-                <TableCell key="publisher" className="text-right">{user.publisher}</TableCell>
+          {books.map((book, index) => (
+              <TableRow key={book.isbn || index}>
+                <TableCell className="font-medium">{book.isbn}</TableCell>
+                <TableCell>{book.title}</TableCell>
+                <TableCell>{book.author}</TableCell>
+                <TableCell className="text-right">{book.publisher}</TableCell>
               </TableRow>
-            </TableBody>
           ))}
         </Table>
 
