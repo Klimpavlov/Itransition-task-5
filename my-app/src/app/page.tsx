@@ -40,14 +40,16 @@ export default function Home() {
               <TableHead className="text-right">Publisher</TableHead>
             </TableRow>
           </TableHeader>
-          {books.map((book, index) => (
-              <TableRow key={book.isbn || index}>
-                <TableCell className="font-medium">{book.isbn}</TableCell>
-                <TableCell>{book.title}</TableCell>
-                <TableCell>{book.author}</TableCell>
-                <TableCell className="text-right">{book.publisher}</TableCell>
-              </TableRow>
-          ))}
+          <TableBody>
+            {books.map((book, index) => (
+                <TableRow key={book.isbn || index}>
+                  <TableCell className="font-medium">{book.isbn}</TableCell>
+                  <TableCell>{book.title}</TableCell>
+                  <TableCell>{book.author}</TableCell>
+                  <TableCell className="text-right">{book.publisher}</TableCell>
+                </TableRow>
+            ))}
+          </TableBody>
         </Table>
 
       </main>
