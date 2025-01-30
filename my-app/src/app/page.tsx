@@ -12,13 +12,15 @@ import {
   TableRow,
 } from "@/components/ui/table"
 
+
 export default function Home() {
 
   const [books, setBooks] = useState([]);
   const [lang, setLang] = useState("en");
+  const [seed, setSeed] = useState("42");
 
   async function getBooks() {
-    const booksData = await getBooksList({ lang });
+    const booksData = await getBooksList({ lang, seed });
     console.log(booksData);
     setBooks(booksData);
   }
@@ -26,6 +28,12 @@ export default function Home() {
   useEffect(() => {
     getBooks();
   }, [lang]);
+
+  function generateRandomSeed() {
+    const newSeed = Math.floor(Math.random() * 1000000).toString();
+    setSeed(newSeed);
+
+  }
 
 
   return (
@@ -36,6 +44,15 @@ export default function Home() {
           <option value="de">Deutsch</option>
           <option value="fr">Français</option>
         </select>
+        <label>Seed:</label>
+        <input
+            type="text"
+            value={seed}
+            onChange={(e) => setSeed(e.target.value)}
+            className="mb-4 p-2 border"
+        />
+        <button onClick={generateRandomSeed} className="p-2 border">🔀 Random Seed</button>
+
         <Table>
           <TableCaption>A list of your recent invoices.</TableCaption>
           <TableHeader>
